@@ -1,84 +1,63 @@
 /* ===================================
    岡山瀨戶內慢旅
-   Budget System
+   Budget System 修正版
 =================================== */
 
 
-/*
-    初始預算資料
-*/
-
-
 let expenses = JSON.parse(
-
-    localStorage.getItem(
-        "okayama_budget"
-    )
-
+    localStorage.getItem("okayama_budget")
 ) || [];
 
 
 
+function saveExpenses(){
+
+    localStorage.setItem(
+        "okayama_budget",
+        JSON.stringify(expenses)
+    );
+
+}
 
 
-/*
-    新增花費
 
-    category:
-    flight
-    hotel
-    transport
-    food
-    shopping
-
-*/
+function addExpense(){
 
 
-function addExpense(
-
-    category,
-
-    item,
-
-    amount,
-
-    currency="JPY"
-
-){
+    const item =
+    document.getElementById("budget-item").value;
 
 
-    const expense={
+    const money =
+    document.getElementById("budget-money").value;
 
 
-        id:Date.now(),
+    const type =
+    document.getElementById("budget-type").value;
 
 
-        category:category,
 
+    if(item === "" || money === ""){
+
+        alert("請輸入花費項目與金額");
+
+        return;
+
+    }
+
+
+
+    expenses.push({
 
         item:item,
 
+        amount:Number(money),
 
-        amount:Number(amount),
+        type:type,
 
+        date:new Date().toLocaleDateString("zh-TW")
 
-        currency:currency,
-
-
-        date:
-
-        new Date()
-
-        .toLocaleDateString(
-            "zh-TW"
-        )
-
-
-    };
-
-
-
-    expenses.push(expense);
+    });
 
 
 
@@ -87,77 +66,30 @@ function addExpense(
 
     renderBudget();
 
-}
 
+    document.getElementById("budget-item").value="";
 
+    document.getElementById("budget-money").value="";
 
-
-
-/*
-    儲存
-*/
-
-
-function saveExpenses(){
-
-
-    localStorage.setItem(
-
-        "okayama_budget",
-
-        JSON.stringify(
-            expenses
-        )
-
-    );
 
 }
 
 
-
-
-
-/*
-    計算總額
-*/
-
-
-function totalExpense(){
-
-
-    return expenses.reduce(
-
-        (sum,item)=>
-
-        sum+item.amount,
-
-        0
-
-    );
-
-}
-
-
-
-
-
-/*
-    顯示預算
-*/
 
 
 function renderBudget(){
 
 
-    const area=
-
-    document.getElementById(
-        "budget-list"
-    );
+    const list =
+    document.getElementById("budget-list");
 
 
+    const total =
+    document.getElementById("budget-total");
 
-    if(!area){
+
+
+    if(!list){
 
         return;
 
@@ -168,91 +100,52 @@ function renderBudget(){
     let html="";
 
 
-
-    expenses.forEach(
-
-        e=>{
-
-
-            html+=`
-
-            <div class="budget-item">
-
-            📌 ${e.item}
-
-            <br>
-
-            💴 ${e.amount}
-
-            ${e.currency}
-
-            <br>
-
-            📅 ${e.date}
-
-            </div>
-
-            `;
-
-
-        }
-
-    );
+    let sum=0;
 
 
 
-
-    html+=`
-
-    <hr>
-
-    <h3>
-
-    總花費：
-
-    ${totalExpense()}
-
-    </h3>
+    expenses.forEach((e)=>{
 
 
-    `;
+        sum += e.amount;
 
 
 
-    area.innerHTML=html;
+        html += `
+
+        <div class="schedule-item">
+
+        📌 ${e.item}
+
+        <br>
+
+        💴 ${e.amount} 日圓
+
+        <br>
+
+        📂 ${e.type}
+
+        <br>
+
+        📅 ${e.date}
+
+        </div>
+
+        `;
 
 
-}
+    });
 
 
 
+    list.innerHTML=html;
 
 
-/*
-    清除資料
-*/
 
+    if(total){
 
-function clearBudget(){
-
-
-    if(
-
-        confirm(
-            "確定清除所有花費？"
-        )
-
-    ){
-
-
-        expenses=[];
-
-
-        saveExpenses();
-
-
-        renderBudget();
-
+        total.innerHTML=
+        "目前總花費：" + sum + " 日圓";
 
     }
 
@@ -262,78 +155,8 @@ function clearBudget(){
 
 
 
-
-window.addEventListener(
-
-"load",
-
-()=>{
-
+window.onload=function(){
 
     renderBudget();
 
-
-}
-
-);
-function saveNewExpense(){
-
-
-    const item =
-
-    document.getElementById(
-        "budget-item"
-    ).value;
-
-
-
-    const money =
-
-    document.getElementById(
-        "budget-money"
-    ).value;
-
-
-
-    const type =
-
-    document.getElementById(
-        "budget-type"
-    ).value;
-
-
-
-    if(!item || !money){
-
-        alert(
-            "請輸入完整資料"
-        );
-
-        return;
-
-    }
-
-
-
-    addExpense(
-
-        type,
-
-        item,
-
-        money
-
-    );
-
-
-    document.getElementById(
-        "budget-item"
-    ).value="";
-
-
-    document.getElementById(
-        "budget-money"
-    ).value="";
-
-
-}
+};
