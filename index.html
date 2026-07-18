@@ -191,7 +191,57 @@ target="_blank">
 
 <div id="budget-area">
 
-預算功能下一階段加入
+<input 
+id="budget-item"
+placeholder="例如：午餐">
+
+<br><br>
+
+<input
+id="budget-money"
+type="number"
+placeholder="金額">
+
+<br><br>
+
+<select id="budget-type">
+
+<option value="food">
+餐飲
+</option>
+
+<option value="shopping">
+購物
+</option>
+
+<option value="transport">
+交通
+</option>
+
+<option value="hotel">
+住宿
+</option>
+
+</select>
+
+
+<br><br>
+
+
+<button onclick="saveNewExpense()">
+
+新增花費
+
+</button>
+
+
+<hr>
+
+
+<div id="budget-list">
+
+</div>
+
 
 </div>
 
@@ -250,6 +300,8 @@ ICOCA
 <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 <script src="maps.js"></script>
+
+<script src="budget.js"></script>
 
 <script src="app.js"></script>
 
