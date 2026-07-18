@@ -1,0 +1,16 @@
+{
+  "name": "岡山瀨戶內慢旅 2026",
+  "short_name": "岡山慢旅",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#faf6ee",
+  "theme_color": "#c98562",
+  "description": "2026岡山6天5夜旅遊行程App",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
