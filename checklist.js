@@ -34,7 +34,7 @@ const checklistItems = [
 
     "薄外套",
 
-    "相機",
+    "短袖衣服",
 
     "記憶卡"
 
