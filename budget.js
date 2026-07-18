@@ -104,34 +104,43 @@ function renderBudget(){
 
 
 
-    expenses.forEach((e)=>{
+    expenses.forEach((e,index)=>{
 
 
         sum += e.amount;
 
 
 
-        html += `
+       html += `
 
-        <div class="schedule-item">
+<div class="schedule-item">
 
-        📌 ${e.item}
+📌 ${e.item}
 
-        <br>
+<br>
 
-        💴 ${e.amount} 日圓
+💴 ${e.amount} 日圓
 
-        <br>
+<br>
 
-        📂 ${e.type}
+📂 ${e.type}
 
-        <br>
+<br>
 
-        📅 ${e.date}
+📅 ${e.date}
 
-        </div>
+<br><br>
 
-        `;
+<button onclick="deleteExpense(${index})">
+
+🗑️ 刪除
+
+</button>
+
+
+</div>
+
+`;
 
 
     });
@@ -160,3 +169,22 @@ window.onload=function(){
     renderBudget();
 
 };
+function deleteExpense(index){
+
+
+    if(confirm("確定刪除此筆花費嗎？")){
+
+
+        expenses.splice(index,1);
+
+
+        saveExpenses();
+
+
+        renderBudget();
+
+
+    }
+
+
+}
