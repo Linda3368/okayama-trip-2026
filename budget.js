@@ -276,3 +276,64 @@ window.addEventListener(
 }
 
 );
+function saveNewExpense(){
+
+
+    const item =
+
+    document.getElementById(
+        "budget-item"
+    ).value;
+
+
+
+    const money =
+
+    document.getElementById(
+        "budget-money"
+    ).value;
+
+
+
+    const type =
+
+    document.getElementById(
+        "budget-type"
+    ).value;
+
+
+
+    if(!item || !money){
+
+        alert(
+            "請輸入完整資料"
+        );
+
+        return;
+
+    }
+
+
+
+    addExpense(
+
+        type,
+
+        item,
+
+        money
+
+    );
+
+
+    document.getElementById(
+        "budget-item"
+    ).value="";
+
+
+    document.getElementById(
+        "budget-money"
+    ).value="";
+
+
+}
